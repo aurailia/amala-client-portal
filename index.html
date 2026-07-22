@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Portal · Amala Christie Eberhard · Aurailia</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── CACAO CEREMONY PALETTE · soft lavender, periwinkle, gold ── */
+  /* "pink" slots remapped to soft gold (the warm accent) */
+  --pink: #C9A24B;
+  --pink-soft: #E3C77E;
+  /* purple = the lavender/violet core */
+  --purple: #8B7BC4;
+  --purple-deep: #5E4F92;
+  --purple-soft: #C7BCE6;
+  /* "teal" slots remapped to dusty periwinkle (the cool secondary) */
+  --teal: #7E8FC4;
+  --teal-bright: #9AA8D6;
+  --teal-deep: #56629C;
+
+  --grad-main: linear-gradient(120deg, #8B7BC4 0%, #A99BD6 50%, #C7AED0 100%);
+  --grad-soft: linear-gradient(120deg, #F3EFFA 0%, #ECF0FA 100%);
+  --grad-teal: linear-gradient(120deg, #C9A24B 0%, #E3C77E 100%);
+
+  --pink-pale: #FBF6EA;
+  --pink-border: #EAD9A8;
+  --purple-pale: #F2EEFB;
+  --purple-border: #D8CEEE;
+  --teal-pale: #EEF1FA;
+  --teal-border: #CAD3EC;
+
+  --bg: #F7F4FB;
+  --white: #FFFFFF;
+  --border: #EBE6F3;
+  --border-mid: #DFD7EC;
+  --text: #2E2840;
+  --text-mid: #5F5775;
+  --text-soft: #9A93AC;
+
+  --green: #7E8FC4;
+  --green-bg: #EEF1FA;
+  --green-border: #CAD3EC;
+  --rose: #C9A24B;
+  --rose-bg: #FBF6EA;
+  --rose-border: #EAD9A8;
+  --amber: #B98A2E;
+  --amber-bg: #FBF6EA;
+  --amber-border: #EAD9A8;
+
+  --radius: 16px;
+  --radius-sm: 11px;
+  --shadow: 0 2px 10px rgba(139,123,196,0.10), 0 0 0 1px rgba(139,123,196,0.05);
+  --shadow-lift: 0 6px 22px rgba(139,123,196,0.16);
+  --shadow-sidebar: 2px 0 14px rgba(139,123,196,0.07);
+  --sidebar-w: 224px;
+}
+
+html, body { height: 100%; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  /* backdrop image fills the area around the centered portal. Save as images/page-bg.png */
+  background-image: url('images/page-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+}
+
+.app { display: flex; flex-direction: column; height: 100vh; overflow: hidden; width: 100%; max-width: 1180px; margin: 0 auto; box-shadow: 0 0 60px rgba(139,123,196,0.12); background: var(--bg); }
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--grad-main);
+  padding: 20px 30px;
+  display: flex; align-items: center; gap: 18px;
+  flex-shrink: 0; position: relative; overflow: hidden;
+  box-shadow: var(--shadow-lift);
+}
+/* faded cacao-ceremony image behind the header. Save your image as images/header-bg.png */
+.topbar::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: url('images/header-bg.png');
+  background-size: cover; background-position: center 38%;
+  opacity: 0.30; z-index: 0;
+}
+/* lavender wash over the image so text stays readable and on-palette */
+.topbar::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(120deg, rgba(94,79,146,0.78) 0%, rgba(139,123,196,0.62) 50%, rgba(199,174,208,0.55) 100%);
+  z-index: 1;
+}
+.topbar > * { position: relative; z-index: 2; }
+.avatar {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: rgba(255,255,255,0.22); border: 2px solid rgba(255,255,255,0.6);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px; font-weight: 700; color: #fff; flex-shrink: 0;
+  backdrop-filter: blur(4px);
+}
+.topbar-info { flex: 1; min-width: 0; }
+.topbar-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: #fff; line-height: 1.15; text-shadow: 0 1px 8px rgba(46,40,64,0.35); }
+.topbar-meta { font-size: 14px; color: rgba(255,255,255,0.94); margin-top: 3px; text-shadow: 0 1px 6px rgba(46,40,64,0.3); }
+.topbar-meta .dot { color: #F0E2B8; }
+.topbar-badge {
+  flex-shrink: 0; background: rgba(255,255,255,0.2); border: 1.5px solid rgba(255,255,255,0.5);
+  border-radius: 22px; padding: 8px 18px;
+  font-size: 12px; font-weight: 600; color: #fff;
+  text-align: center; line-height: 1.5; letter-spacing: 0.05em; text-transform: uppercase;
+  backdrop-filter: blur(4px);
+}
+
+/* ── BODY ── */
+.body { display: flex; flex: 1; overflow: hidden; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-w); flex-shrink: 0;
+  background: var(--white); border-right: 1px solid var(--border);
+  padding: 18px 0 24px; overflow-y: auto;
+  box-shadow: var(--shadow-sidebar);
+}
+.sidebar-group {
+  padding: 16px 22px 6px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--purple);
+}
+.sidebar-group:first-child { padding-top: 8px; }
+.tab {
+  display: flex; align-items: center; gap: 11px;
+  width: 100%; padding: 12px 22px;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500;
+  color: var(--text-mid); background: transparent; border: none;
+  cursor: pointer; text-align: left; transition: all 0.16s; position: relative;
+}
+.tab i { font-size: 18px; flex-shrink: 0; }
+.tab:hover:not(.active) { background: var(--purple-pale); color: var(--purple-deep); }
+.tab.active { color: var(--purple-deep); font-weight: 700; background: var(--grad-soft); }
+.tab.active::before {
+  content: ''; position: absolute; left: 0; top: 7px; bottom: 7px;
+  width: 4px; background: var(--grad-main); border-radius: 0 4px 4px 0;
+}
+.tab-sparkle { margin-left: auto; font-size: 11px; color: var(--pink); opacity: 0; transition: opacity 0.16s; }
+.tab.active .tab-sparkle { opacity: 1; }
+
+/* ── MAIN ── */
+.main { flex: 1; overflow-y: auto; padding: 32px 40px 56px; }
+.panel { display: none; animation: fade 0.3s ease; }
+.panel.active { display: block; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ── PAGE TITLE (per tab) ── */
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px; font-weight: 700; line-height: 1.1;
+  background: var(--grad-main); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: var(--purple-deep);
+  margin-bottom: 4px;
+}
+.page-title-accent { display: block; width: 56px; height: 4px; border-radius: 4px; background: var(--grad-teal); margin: 12px 0 16px; }
+.panel-intro { font-size: 16.5px; color: var(--text-mid); line-height: 1.75; margin: 0 0 26px; max-width: 900px; }
+
+/* ── SECTION HEADINGS ── */
+.sec-head { display: flex; align-items: center; gap: 12px; margin: 30px 0 14px; }
+.sec-head:first-of-type { margin-top: 0; }
+.sec-icon { font-size: 12px; color: var(--pink); flex-shrink: 0; }
+.sec-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; font-style: italic; color: var(--purple-deep); letter-spacing: 0.01em; white-space: nowrap; }
+.sec-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--purple-border), transparent); }
+
+/* ── CARD ── */
+.card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px 22px; margin-bottom: 12px; box-shadow: var(--shadow); }
+.card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--pink); margin-bottom: 12px; }
+
+/* ── DATA ROWS ── */
+.drow { display: flex; justify-content: space-between; align-items: flex-start; padding: 11px 0; border-bottom: 1px solid var(--border); gap: 24px; }
+.drow:last-child { border-bottom: none; }
+.dlabel { font-size: 14.5px; color: var(--text-soft); flex-shrink: 0; font-weight: 500; }
+.dval { font-size: 15px; color: var(--text); text-align: right; line-height: 1.6; }
+
+/* ── TOP 4 ── */
+.top4 { background: var(--grad-soft); border: 1px solid var(--purple-border); border-radius: var(--radius-sm); padding: 20px 22px; margin-bottom: 12px; box-shadow: var(--shadow); }
+.top4-head { font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--purple); margin-bottom: 14px; }
+.top4-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--purple-border); }
+.top4-item:last-child { border-bottom: none; }
+.top4-num { width: 28px; height: 28px; border-radius: 50%; background: var(--grad-main); color: #fff; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-family: 'Cormorant Garamond', serif; box-shadow: 0 2px 6px rgba(232,106,166,0.3); }
+.top4-text { font-size: 15px; color: var(--text); line-height: 1.6; }
+.top4-owner { font-size: 12.5px; color: var(--pink); margin-top: 4px; font-weight: 600; }
+
+/* ── TEXT ── */
+.body-text { font-size: 15.5px; color: var(--text); line-height: 1.8; }
+.body-text + .body-text { margin-top: 14px; }
+.blockquote { border-left: 4px solid var(--pink); background: var(--grad-soft); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 18px 22px; margin-top: 6px; }
+.blockquote p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--purple-deep); line-height: 1.65; }
+.niche-box { border-left: 4px solid var(--teal); background: var(--teal-pale); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 14px 18px; margin-bottom: 8px; }
+.niche-box:last-child { margin-bottom: 0; }
+.niche-box p { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--teal-deep); line-height: 1.6; }
+
+/* ── TAGS ── */
+.tag-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { font-size: 13.5px; padding: 6px 14px; border-radius: 22px; font-weight: 500; }
+.tag-pink { background: var(--pink-pale); color: var(--pink); border: 1px solid var(--pink-border); font-weight: 600; }
+.tag-purple { background: var(--purple-pale); color: var(--purple-deep); border: 1px solid var(--purple-border); }
+.tag-teal { background: var(--teal-pale); color: var(--teal-deep); border: 1px solid var(--teal-border); }
+
+/* ── WEALTH CODES ── */
+.wcode { padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text); line-height: 1.7; display: flex; align-items: flex-start; gap: 10px; }
+.wcode:last-child { border-bottom: none; }
+.wcode-dot { color: var(--teal); font-size: 11px; margin-top: 6px; flex-shrink: 0; }
+.wcode strong { color: var(--purple-deep); }
+
+/* ── PROGRESS ── */
+.prow { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.prow:last-child { border-bottom: none; }
+.prow-label { flex: 1; font-size: 15px; color: var(--text); line-height: 1.45; }
+.pbar-wrap { width: 90px; flex-shrink: 0; }
+.pbar-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.pbar-fill { height: 100%; border-radius: 3px; transition: width 0.3s, background 0.2s; }
+.pbar-fill.done { background: var(--grad-teal); width: 100%; }
+.pbar-fill.inprog { background: var(--grad-main); width: 55%; }
+.pbar-fill.planned { background: var(--purple-soft); width: 22%; }
+.pbar-fill.notstart { background: var(--border-mid); width: 5%; }
+
+/* ── PILLS ── */
+.pill { font-size: 12.5px; padding: 5px 13px; border-radius: 22px; white-space: nowrap; font-weight: 600; }
+.pill-done { background: var(--teal-pale); color: var(--teal-deep); border: 1px solid var(--teal-border); }
+.pill-inprog { background: var(--purple-pale); color: var(--purple-deep); border: 1px solid var(--purple-border); }
+.pill-planned { background: var(--bg); color: var(--text-mid); border: 1px solid var(--border); }
+.pill-notstart { background: var(--bg); color: var(--text-soft); border: 1px solid var(--border); }
+.pill-pending { background: var(--pink-pale); color: var(--pink); border: 1px solid var(--pink-border); }
+.pill-urgent { background: var(--pink-pale); color: var(--pink); border: 1px solid var(--pink-border); }
+.pill-clickable { cursor: pointer; transition: transform 0.12s, box-shadow 0.12s; }
+.pill-clickable:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(139,92,246,0.18); }
+
+/* ── ACTIONS / TO-DO ── */
+.action-head { font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--text-mid); display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+.urgent-badge { font-size: 11px; padding: 3px 10px; border-radius: 22px; background: var(--pink-pale); color: var(--pink); border: 1px solid var(--pink-border); font-weight: 600; letter-spacing: 0.04em; }
+.aitem { display: flex; align-items: flex-start; gap: 13px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+.aitem:last-child { border-bottom: none; }
+.aitem input[type=checkbox] { margin-top: 3px; flex-shrink: 0; accent-color: var(--purple); width: 19px; height: 19px; cursor: pointer; }
+.aitem-text { font-size: 15px; color: var(--text); line-height: 1.6; flex: 1; }
+.aitem-text.checked { text-decoration: line-through; color: var(--text-soft); }
+.aitem-text[contenteditable="true"]:focus { outline: none; background: var(--purple-pale); border-radius: 6px; padding: 2px 6px; margin: -2px -6px; }
+.aitem-del { flex-shrink: 0; background: none; border: none; color: var(--text-soft); cursor: pointer; font-size: 17px; padding: 0 2px; opacity: 0; transition: opacity 0.14s, color 0.14s; line-height: 1; margin-top: 2px; }
+.aitem:hover .aitem-del { opacity: 1; }
+.aitem-del:hover { color: var(--pink); }
+
+/* edit-mode controls */
+.list-controls { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+.add-row { display: flex; gap: 10px; margin-top: 12px; }
+.add-input { flex: 1; padding: 11px 15px; border: 1px solid var(--purple-border); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 14.5px; color: var(--text); background: var(--white); }
+.add-input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px var(--purple-pale); }
+
+/* buttons */
+.btn { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; border-radius: var(--radius-sm); cursor: pointer; border: none; padding: 11px 20px; transition: all 0.15s; display: inline-flex; align-items: center; gap: 8px; }
+.btn-grad { background: var(--grad-main); color: #fff; box-shadow: 0 3px 10px rgba(232,106,166,0.3); }
+.btn-grad:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(232,106,166,0.4); }
+.btn-teal { background: var(--grad-teal); color: #fff; box-shadow: 0 3px 10px rgba(31,182,166,0.3); }
+.btn-teal:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(31,182,166,0.4); }
+.btn-outline { background: var(--white); color: var(--purple-deep); border: 1.5px solid var(--purple-border); }
+.btn-outline:hover { background: var(--purple-pale); }
+.btn-sm { padding: 8px 15px; font-size: 13px; }
+
+.edit-toggle { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 22px; border: 1.5px solid var(--purple-border); background: var(--white); color: var(--purple-deep); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif; }
+.edit-toggle:hover { background: var(--purple-pale); }
+.edit-toggle.on { background: var(--grad-main); color: #fff; border-color: transparent; }
+.edit-hint { font-size: 13px; color: var(--text-soft); font-style: italic; }
+
+body:not(.editing) .aitem-del { display: none; }
+body:not(.editing) .add-row { display: none; }
+body.editing .aitem-del { opacity: 1; }
+body.editing .aitem input[type=checkbox] { display: none; }
+
+/* owner toggle */
+.owner-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
+.owner-btn { flex: 1; padding: 14px 18px; border: 1.5px solid var(--border); background: var(--white); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; color: var(--text-mid); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 9px; transition: all 0.16s; }
+.owner-btn i { font-size: 19px; }
+.owner-btn.active { background: var(--grad-soft); border-color: var(--purple-border); color: var(--purple-deep); }
+.owner-section { display: none; }
+.owner-section.active { display: block; }
+
+/* ── STEP / ACCORDION ── */
+.step-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 12px; overflow: hidden; box-shadow: var(--shadow); }
+.step-head { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--grad-soft); border-bottom: 1px solid transparent; cursor: pointer; transition: background 0.15s; }
+.step-card.open .step-head { border-bottom-color: var(--purple-border); }
+.step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--grad-main); color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'Cormorant Garamond', serif; box-shadow: 0 2px 6px rgba(232,106,166,0.3); }
+.step-title { flex: 1; font-size: 16px; font-weight: 600; color: var(--purple-deep); }
+.step-day { font-size: 12px; color: var(--pink); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+.step-toggle { font-size: 18px; color: var(--purple); transition: transform 0.2s; }
+.step-card.open .step-toggle { transform: rotate(180deg); }
+.step-body { display: none; padding: 18px 22px; }
+.step-card.open .step-body { display: block; }
+.step-body p { font-size: 15px; color: var(--text); line-height: 1.75; }
+.step-body p + p { margin-top: 12px; }
+
+/* fear note inside accordion */
+.fear-note { background: var(--teal-pale); border: 1px solid var(--teal-border); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 16px; }
+.fear-note-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-deep); margin-bottom: 7px; }
+.fear-note p { font-size: 14.5px; color: var(--text); line-height: 1.7; font-style: italic; }
+
+/* round divider */
+.round-label { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; font-weight: 700; color: var(--pink); margin: 20px 0 10px; display: flex; align-items: center; gap: 10px; }
+.round-label:first-child { margin-top: 4px; }
+.round-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--pink-border), transparent); }
+
+/* tapping rows */
+.tap-row { display: flex; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+.tap-row:last-child { border-bottom: none; }
+.tap-point { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--purple); flex-shrink: 0; width: 116px; line-height: 1.5; padding-top: 2px; }
+.tap-words { font-size: 15px; color: var(--text); line-height: 1.65; flex: 1; font-style: italic; }
+
+.setup-box { background: var(--grad-soft); border: 1px solid var(--purple-border); border-radius: var(--radius-sm); padding: 16px 18px; margin-bottom: 14px; }
+.setup-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 9px; }
+.setup-text { font-size: 15.5px; color: var(--text); line-height: 1.7; font-style: italic; }
+
+.callout { background: var(--teal-pale); border: 1px solid var(--teal-border); border-radius: var(--radius-sm); padding: 18px 20px; margin-bottom: 12px; }
+.callout-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; font-weight: 700; color: var(--teal-deep); margin-bottom: 8px; }
+.callout p { font-size: 15px; color: var(--text); line-height: 1.75; }
+
+.mantra { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-style: italic; font-weight: 600; color: var(--purple-deep); line-height: 1.6; text-align: center; padding: 20px 22px; background: var(--grad-soft); border: 1px solid var(--purple-border); border-radius: var(--radius-sm); margin: 16px 0 6px; }
+
+.mini-list { list-style: none; margin: 8px 0 0; }
+.mini-list li { font-size: 15px; color: var(--text); line-height: 1.7; padding: 7px 0 7px 22px; position: relative; }
+.mini-list li::before { content: '✦'; position: absolute; left: 0; color: var(--teal); font-size: 11px; top: 11px; }
+
+.breath-cue { display: flex; align-items: flex-start; gap: 10px; background: var(--teal-pale); border: 1px solid var(--teal-border); border-radius: var(--radius-sm); padding: 13px 16px; margin-top: 12px; }
+.breath-cue i { color: var(--teal-deep); font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.breath-cue p { font-size: 14.5px; color: var(--teal-deep); line-height: 1.65; font-style: italic; }
+
+/* ── BREATHING CIRCLE ── */
+.breath-wrap { display: flex; flex-direction: column; align-items: center; padding: 8px 0 4px; }
+.breath-stage { position: relative; width: 240px; height: 240px; display: flex; align-items: center; justify-content: center; margin: 6px 0 18px; }
+.breath-ring { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--purple-border); opacity: 0.55; }
+.breath-ring.r2 { inset: 26px; opacity: 0.4; }
+.breath-ring.r3 { inset: 52px; opacity: 0.3; }
+.breath-circle { position: relative; width: 120px; height: 120px; border-radius: 50%; background: var(--grad-main); box-shadow: 0 8px 30px rgba(139,123,196,0.4); display: flex; align-items: center; justify-content: center; transform: scale(0.62); transition: transform 0.4s ease; will-change: transform; }
+.breath-circle.run { transition: transform var(--phase-dur, 4s) cubic-bezier(0.42,0,0.58,1); }
+.breath-circle.big { transform: scale(1.12); }
+.breath-circle.small { transform: scale(0.62); }
+.breath-glow { position: absolute; inset: -18px; border-radius: 50%; background: radial-gradient(circle, rgba(169,155,214,0.45) 0%, rgba(169,155,214,0) 70%); opacity: 0; transition: opacity 0.6s; }
+.breath-circle.big .breath-glow { opacity: 1; }
+.breath-cue-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; font-style: italic; color: #fff; text-shadow: 0 1px 6px rgba(94,79,146,0.5); letter-spacing: 0.02em; line-height: 1.15; z-index: 2; }
+.breath-count { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 600; z-index: 2; }
+.breath-controls { display: flex; gap: 10px; align-items: center; }
+.breath-status { font-size: 14px; color: var(--text-mid); text-align: center; min-height: 20px; margin-top: 2px; font-style: italic; }
+.breath-rounds { font-size: 12.5px; color: var(--text-mid); margin-top: 4px; letter-spacing: 0.04em; }
+
+/* ── HYPNOSIS AUDIO ── */
+.audio-card { background: var(--grad-soft); border: 1px solid var(--purple-border); border-radius: var(--radius-sm); padding: 20px 22px; margin-bottom: 14px; box-shadow: var(--shadow); }
+.audio-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.audio-icon { width: 42px; height: 42px; border-radius: 50%; background: var(--grad-main); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; box-shadow: 0 2px 8px rgba(139,123,196,0.3); }
+.audio-title { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 700; font-style: italic; color: var(--purple-deep); line-height: 1.2; }
+.audio-sub { font-size: 13px; color: var(--text-mid); margin-top: 1px; }
+.audio-desc { font-size: 14.5px; color: var(--text); line-height: 1.7; margin: 4px 0 14px; }
+.audio-card audio { width: 100%; height: 42px; border-radius: 22px; }
+
+/* ── NOTES ── */
+.note-entry { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.note-entry:last-child { border-bottom: none; }
+.note-date { font-size: 13px; font-weight: 700; color: var(--pink); letter-spacing: 0.04em; margin-bottom: 8px; }
+.note-text { font-size: 15px; color: var(--text); line-height: 1.8; }
+.empty { font-size: 15px; color: var(--text-soft); font-style: italic; }
+
+/* ── SIGN OFF ── */
+.signoff { text-align: center; padding: 32px 22px; margin-top: 10px; }
+.signoff p { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; font-weight: 600; line-height: 1.6; background: var(--grad-main); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.signoff .name { font-size: 16px; color: var(--text-mid); margin-top: 10px; font-style: normal; letter-spacing: 0.05em; }
+
+/* save toast */
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--grad-teal); color: #fff; padding: 12px 22px; border-radius: 22px; font-size: 14px; font-weight: 600; box-shadow: 0 6px 20px rgba(31,182,166,0.4); opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 100; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── ORACLE (three-card choose) ── */
+.oracle-stage { display: flex; flex-direction: column; align-items: center; padding: 8px 0 4px; }
+.oracle-spread { display: flex; gap: 22px; justify-content: center; align-items: flex-start; margin: 14px auto 22px; flex-wrap: wrap; }
+/* Card holds a 2:3 ratio to match the 1050 x 1500 px art exactly */
+.oc { position: relative; width: 200px; height: 300px; perspective: 1300px; cursor: pointer; transition: transform 0.3s, opacity 0.5s; }
+.oc:hover:not(.chosen):not(.faded) { transform: translateY(-10px); }
+.oc.faded { opacity: 0.28; pointer-events: none; filter: saturate(0.6); transform: scale(0.94); }
+.oc.chosen { cursor: default; }
+.oc-inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 0.85s cubic-bezier(0.4,0.2,0.2,1); }
+.oc.chosen .oc-inner { transform: rotateY(180deg); }
+.oc-face { position: absolute; inset: 0; border-radius: 15px; backface-visibility: hidden; overflow: hidden; box-shadow: 0 10px 28px rgba(139,92,246,0.28); }
+
+/* CARD BACK (cover): replace .oc-back-img background-image with your Cloudinary card-back URL */
+.oc-back { background: var(--grad-main); border: 2px solid rgba(255,255,255,0.32); display: flex; align-items: center; justify-content: center; }
+.oc-back-img { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.oc-back-art { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.oc-back-art::before { content: ''; position: absolute; width: 118px; height: 118px; border: 1.5px solid rgba(255,255,255,0.5); border-radius: 50%; }
+.oc-back-art::after { content: ''; position: absolute; width: 82px; height: 82px; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 50%; transform: rotate(45deg); }
+.oc-back-star { font-size: 36px; color: #fff; position: relative; z-index: 2; text-shadow: 0 0 16px rgba(255,255,255,0.6); }
+
+/* CARD FACE: full-bleed image fills the whole card (Option A). Title/tagline live in the art itself.
+   Replace via the data-photo img src (images/NN-name.png). Placeholder shows when no image. */
+.oc-front { transform: rotateY(180deg); background: #F7F3EC; border: 1px solid var(--purple-border); overflow: hidden; }
+.oc-face-img { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+.oc-face-glyph { font-size: 52px; opacity: 0.8; position: relative; z-index: 1; }
+.oc-face-ph-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; font-style: italic; color: var(--purple-deep); margin-top: 10px; position: relative; z-index: 1; text-align: center; padding: 0 14px; line-height: 1.2; }
+.oc-face-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
+
+.oracle-hint { font-size: 14.5px; color: var(--text-mid); text-align: center; line-height: 1.6; margin-bottom: 6px; font-style: italic; }
+.oracle-reading { max-width: 580px; margin: 0 auto; opacity: 0; transform: translateY(10px); transition: all 0.5s 0.3s; }
+.oracle-reading.show { opacity: 1; transform: none; }
+.reading-card { background: var(--white); border: 1px solid var(--purple-border); border-radius: var(--radius-sm); padding: 22px 24px; box-shadow: var(--shadow); text-align: center; }
+.reading-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; font-style: italic; background: var(--grad-main); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; margin-bottom: 4px; }
+.reading-essence { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pink); margin-bottom: 16px; }
+.reading-why { background: var(--grad-soft); border: 1px solid var(--purple-border); border-radius: var(--radius-sm); padding: 13px 16px; margin-bottom: 14px; }
+.reading-why-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 6px; }
+.reading-why p { font-size: 14.5px; color: var(--text); line-height: 1.7; font-style: italic; }
+.reading-message { font-size: 16px; color: var(--text); line-height: 1.8; margin-bottom: 14px; }
+.reading-practice { background: var(--teal-pale); border: 1px solid var(--teal-border); border-radius: var(--radius-sm); padding: 14px 16px; margin-top: 4px; }
+.reading-practice-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-deep); margin-bottom: 6px; }
+.reading-practice p { font-size: 14.5px; color: var(--text); line-height: 1.65; font-style: italic; }
+.oracle-again { margin: 22px auto 0; text-align: center; opacity: 0; transition: opacity 0.4s 0.6s; }
+.oracle-again.show { opacity: 1; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 760px) {
+  :root { --sidebar-w: 100%; }
+  body { font-size: 15px; }
+  .app { height: auto; overflow: visible; }
+  .body { flex-direction: column; overflow: visible; }
+  .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; }
+  .sidebar-group { display: none; }
+  .tab { width: auto; padding: 9px 14px; border-radius: 22px; font-size: 13.5px; }
+  .tab.active::before { display: none; }
+  .tab.active { border: 1.5px solid var(--purple-border); }
+  .main { overflow: visible; padding: 22px 18px 48px; }
+  .page-title { font-size: 30px; }
+  .panel-intro { font-size: 15.5px; }
+  .topbar { padding: 18px 20px; }
+  .topbar-name { font-size: 24px; }
+  .topbar-badge { display: none; }
+  .drow { flex-direction: column; gap: 4px; }
+  .dval { text-align: left; }
+  .tap-row { flex-direction: column; gap: 4px; }
+  .tap-point { width: auto; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="avatar">AE</div>
+    <div class="topbar-info">
+      <div class="topbar-name">Amala Christie Eberhard</div>
+      <div class="topbar-meta">Your private portal with Aurailia <span class="dot">✦</span> updated after each call</div>
+    </div>
+    <div class="topbar-badge">Everheart Consulting<br>brand + site build</div>
+  </div>
+
+  <div class="body">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-group">You</div>
+      <button class="tab active" data-tab="snapshot">
+        <i class="ti ti-layout-dashboard" aria-hidden="true"></i> Your snapshot <span class="tab-sparkle">✦</span>
+      </button>
+      <button class="tab" data-tab="design">
+        <i class="ti ti-hexagon" aria-hidden="true"></i> Your design <span class="tab-sparkle">✦</span>
+      </button>
+      <div class="sidebar-group">The Work</div>
+      <button class="tab" data-tab="todo">
+        <i class="ti ti-checkbox" aria-hidden="true"></i> Your to-do list <span class="tab-sparkle">✦</span>
+      </button>
+      <button class="tab" data-tab="progress">
+        <i class="ti ti-checklist" aria-hidden="true"></i> Where we are <span class="tab-sparkle">✦</span>
+      </button>
+      <button class="tab" data-tab="call">
+        <i class="ti ti-notes" aria-hidden="true"></i> From our call <span class="tab-sparkle">✦</span>
+      </button>
+      <div class="sidebar-group">Support</div>
+      <button class="tab" data-tab="visibility">
+        <i class="ti ti-broadcast" aria-hidden="true"></i> Visibility plan <span class="tab-sparkle">✦</span>
+      </button>
+      <button class="tab" data-tab="fear">
+        <i class="ti ti-heart-handshake" aria-hidden="true"></i> When fear hits <span class="tab-sparkle">✦</span>
+      </button>
+      <button class="tab" data-tab="oracle">
+        <i class="ti ti-cards" aria-hidden="true"></i> Pull a card <span class="tab-sparkle">✦</span>
+      </button>
+    </div>
+
+    <div class="main">
+
+      <!-- ═══════════════════════════════════════════════
+           TAB 1: YOUR SNAPSHOT
+           Fill from the client's profile: name, business,
+           site, goal, buckets/focus, soulmate client, top priorities.
+      ═══════════════════════════════════════════════ -->
+      <div id="tab-snapshot" class="panel active">
+        <h1 class="page-title">Your Snapshot</h1>
+        <span class="page-title-accent"></span>
+        <p class="panel-intro">This is your space. Everything we decide together lives here, and it updates after each call so you always know exactly where things stand and what's next. No more digging through messages or trying to remember what we said. Take a breath. It's all in one place now.</p>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">You at a glance</span><span class="sec-line"></span></div>
+        <div class="card">
+          <div class="drow"><span class="dlabel">Name</span><span class="dval">Amala Christie Eberhard, Certified Clinical Hypnotist</span></div>
+          <div class="drow"><span class="dlabel">Current business</span><span class="dval">Everheart Consulting</span></div>
+          <div class="drow"><span class="dlabel">Current site</span><span class="dval">everheartconsulting.com (hosted on Hostinger)</span></div>
+          <div class="drow"><span class="dlabel">What we're building</span><span class="dval">A light, soothing new website, a School community, and your Coherence Code program</span></div>
+          <div class="drow"><span class="dlabel">Your entry point</span><span class="dval">The Calibration Session (1 hour, €75, credited toward packages), one clear door into everything</span></div>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">How your work is organised</span><span class="sec-line"></span></div>
+        <div class="card">
+          <div class="body-text">Three ways people work with you, and one clear front door. Everything leads to a Calibration Session first, so the right people find their way in without feeling overwhelmed by choices.</div>
+          <div style="margin-top:16px;">
+            <div class="niche-box"><p>Quantum Journeys Hypnosis. Single sessions and a one-month container. The deep work that goes beneath the thinking mind, with your Doorways to choose from.</p></div>
+            <div class="niche-box"><p>Coherence Consulting. Your one-on-one sessions for recentering and clarity, in a supported package.</p></div>
+            <div class="niche-box"><p>The Coherence Code, your 12-week program, offered self-led or one-on-one with you.</p></div>
+          </div>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">The person you're building for</span><span class="sec-line"></span></div>
+        <div class="card">
+          <div class="card-label">Your soulmate client</div>
+          <div class="blockquote"><p>An accomplished executive, founder, or leader who has built everything they were supposed to build and quietly senses something essential is missing. They've done the therapy, the coaching, the retreats, and nothing reached the root. They look composed on the outside while carrying real exhaustion underneath, and they're ready to close the gap between outer success and inner truth.</p></div>
+          <div class="body-text" style="margin-top:16px;">When you write, when you post, when you build a page, picture her. She's who everything is for.</div>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">What matters most right now</span><span class="sec-line"></span></div>
+        <div class="top4">
+          <div class="top4-head">Your top priorities</div>
+          <div class="top4-item"><div class="top4-num">1</div><div><div class="top4-text">Prepare your content doc, page by page, with descriptions, durations, packages, and pricing</div><div class="top4-owner">Yours</div></div></div>
+          <div class="top4-item"><div class="top4-num">2</div><div><div class="top4-text">Write your ~8 doorway descriptions, including your 2 new custom ones</div><div class="top4-owner">Yours</div></div></div>
+          <div class="top4-item"><div class="top4-num">3</div><div><div class="top4-text">Review the Canva mood board and swap any images you don't love</div><div class="top4-owner">Yours</div></div></div>
+          <div class="top4-item"><div class="top4-num">4</div><div><div class="top4-text">Build your draft mockup in Lovable and test it in Hostinger</div><div class="top4-owner">Mine</div></div></div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           TAB 2: YOUR DESIGN
+           Fill from the client's Human Design in their profile.
+           Delete this whole tab + its sidebar button if you
+           don't do HD for a given client.
+      ═══════════════════════════════════════════════ -->
+      <div id="tab-design" class="panel">
+        <h1 class="page-title">Your Design</h1>
+        <span class="page-title-accent"></span>
+        <p class="panel-intro">Your Human Design shows how you're wired to work, decide, and attract clients. This isn't woo for its own sake. It's the reason some strategies have felt like a fight and others feel like home. We build everything around how you're actually built, so your business finally works with your energy instead of against it.</p>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Your chart</span><span class="sec-line"></span></div>
+        <div class="card">
+          <div class="drow"><span class="dlabel">Type</span><span class="dval">Projector, the Seer. Built to guide and be invited in, not to hustle</span></div>
+          <div class="drow"><span class="dlabel">Profile</span><span class="dval">2/4, the Easy Breezy Genius. A natural gift plus growth through people you know</span></div>
+          <div class="drow"><span class="dlabel">Authority</span><span class="dval">Splenic. Your gut knows in the moment, the first quiet yes or no is the real one</span></div>
+          <div class="drow"><span class="dlabel">Strategy</span><span class="dval">Wait for the invitation</span></div>
+          <div class="drow"><span class="dlabel">Incarnation Cross</span><span class="dval">Right Angle Cross of Rulership (26/45 | 47/22)</span></div>
+          <div class="drow"><span class="dlabel">Defined centres</span><span class="dval">Head, Ajna, Will, G-Centre, Spleen</span></div>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Your wealth codes</span><span class="sec-line"></span></div>
+        <div class="card">
+          <div class="wcode"><span class="wcode-dot">✦</span><div><strong>Powerful transmission.</strong> Your Gate 26 lets you say a deep truth with power so the right person feels it in their body. Your voice is the invitation. You don't need to say more, you need to be seen a bit more often.</div></div>
+          <div class="wcode"><span class="wcode-dot">✦</span><div><strong>The gatherer.</strong> Your Gate 45 is built to bring the right people together and hold the room. That's the Coherence Code, the community, the rooms people travel for.</div></div>
+          <div class="wcode"><span class="wcode-dot">✦</span><div><strong>Lived authority.</strong> You earned the outer success, did the deep inner work, and healed what doctors called permanent. That can't be faked, and your defined Will lets you price it without apology.</div></div>
+          <div class="wcode"><span class="wcode-dot">✦</span><div><strong>The trusted network.</strong> Your 4th line means your best clients come through warm relationships and referrals, not cold funnels. Tend the network and the invitations flow.</div></div>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Who you are through your design</span><span class="sec-line"></span></div>
+        <div class="card">
+          <p class="body-text">You're a Projector, so you're built to be recognised and invited in, not to push or chase. Your power is being seen for your gift, then doing the deep thing only you can do. Your gut decides in the moment, and your 2/4 profile means you do your most jaw-dropping work in private, then grow through the people who experience it and pass your name along. This is exactly why the Calibration Session as your one clear door makes so much sense, it lets the right person recognise you at low risk, then invite themselves deeper.</p>
+          <p class="body-text">Your income doesn't come from volume or a big audience. It comes from depth, rare authority, and being recognised by a smaller group of accomplished people who happily pay for the transformation and the discretion. Everything we're building, the simple site, the School community, the program, is designed to make you easy to recognise and easy to say yes to, without draining the energy you need for the deep work.</p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           TAB 3: YOUR TO-DO LIST  (rendered from DEFAULT_TODO in the script below)
+      ═══════════════════════════════════════════════ -->
+      <div id="tab-todo" class="panel">
+        <h1 class="page-title">Your To-Do List</h1>
+        <span class="page-title-accent"></span>
+        <p class="panel-intro">Everything that needs doing, split so you can see what's yours and what's mine. Check things off as you go, it all saves automatically. You're never doing this alone. I'm carrying the build, you're carrying the pieces only you can. Want to add your own task or tweak one? Tap Edit list and make it yours.</p>
+
+        <div class="list-controls">
+          <button class="edit-toggle" id="todo-edit-btn"><i class="ti ti-pencil"></i> Edit list</button>
+          <span class="edit-hint" id="todo-edit-hint">Check items off as you finish them</span>
+        </div>
+
+        <div class="owner-toggle">
+          <button class="owner-btn active" data-owner="mine"><i class="ti ti-user-heart"></i> Yours to do</button>
+          <button class="owner-btn" data-owner="aurailia"><i class="ti ti-sparkles"></i> What I'm handling</button>
+        </div>
+
+        <div id="owner-mine" class="owner-section active"></div>
+        <div id="owner-aurailia" class="owner-section"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           TAB 4: WHERE WE ARE  (rendered from DEFAULT_PROGRESS in the script below)
+      ═══════════════════════════════════════════════ -->
+      <div id="tab-progress" class="panel">
+        <h1 class="page-title">Where We Are</h1>
+        <span class="page-title-accent"></span>
+        <p class="panel-intro">The big picture of your build, all in one view. As pieces move, this fills in, so you'll always be able to see exactly how far along we are. Tap any status to update it. It saves the moment you change it.</p>
+
+        <div class="list-controls">
+          <span class="edit-hint"><i class="ti ti-hand-finger" style="vertical-align:middle;"></i> Tap a status pill to cycle it: Done, In progress, Not started, Waiting on you</span>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Brand &amp; identity</span><span class="sec-line"></span></div>
+        <div class="card" id="prog-start"></div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Website</span><span class="sec-line"></span></div>
+        <div class="card" id="prog-brand"></div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Community &amp; course (School)</span><span class="sec-line"></span></div>
+        <div class="card" id="prog-website"></div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Offers &amp; program</span><span class="sec-line"></span></div>
+        <div class="card" id="prog-call"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           TAB 5: VISIBILITY PLAN
+           The structure is universal. Swap the bracketed examples
+           for ones that fit this client's niche, story, and soulmate client.
+      ═══════════════════════════════════════════════ -->
+      <div id="tab-visibility" class="panel">
+        <h1 class="page-title">Visibility Plan</h1>
+        <span class="page-title-accent"></span>
+        <p class="panel-intro">You don't need to post more. You need to post in a way that feels like you and actually reaches her. This is built for how you're wired. Your story is your strongest pull, so we lead with your real experience, not polished tips. Start with the 7 days below to build your tolerance for being seen, then settle into the weekly rhythm. Tap any day to open it.</p>
+
+        <div class="callout">
+          <div class="callout-title">Before you start</div>
+          <p>Visibility is a nervous system skill, not a personality trait. Every time you let yourself be seen and nothing bad happens, your body learns it's safe. That's the whole game. Small and steady beats big and rare. If a day feels like too much, do the smaller version and still count it as a win.</p>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Your 7-day on-ramp</span><span class="sec-line"></span></div>
+
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">1</div><div class="step-title">Show your face, no words needed</div><span class="step-day">Day 1</span><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <p>Post one story. Just you. In your space, mid-work, in your garden, wherever feels natural. No caption pressure, no teaching. A few words over the top if you want: "A quiet morning before the deep work begins." That's it.</p>
+            <p>The goal today isn't engagement. It's letting your body feel what it's like to be visible and have it be completely fine.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">2</div><div class="step-title">Name one thing you believe</div><span class="step-day">Day 2</span><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <p>One short post or story. A single thing you know to be true from your work. Something like: "You don't have to choose between outer success and inner truth. You never did."</p>
+            <p>No call to action. No selling. You're just letting people hear how you think. This is how your soulmate client starts to recognize you.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">3</div><div class="step-title">Share a piece of your story</div><span class="step-day">Day 3</span><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <p>This is often your strongest move. As a 2/4, your story is how people recognise you, it's what pulls the right ones in. Share one honest moment from your own path. The version you don't usually say out loud.</p>
+            <p>Maybe the moment you'd climbed every outer ceiling and still felt that quiet gap. Or the years of deep work, and healing what doctors called permanent. Keep it real, not polished. People come for the truth, not the highlight reel.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">4</div><div class="step-title">Mirror the person you help</div><span class="step-day">Day 4</span><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <p>Write directly to her. The accomplished leader who has built everything and still feels something essential is missing. Name what that's like so precisely she feels seen.</p>
+            <p>Something like: "You got everything you worked for. So why does it feel like something's still missing?" Let her feel that you get it.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">5</div><div class="step-title">Show your work in motion</div><span class="step-day">Day 5</span><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <p>A glimpse behind the scenes. The space where you hold your sessions, a moment before a Quantum Journey, the feel of how you work. A short note on what one part of your method actually does, in plain language, like how the work reaches beneath the busy, thinking mind.</p>
+            <p>You're not explaining your whole method. You're letting people feel the texture of working with you.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">6</div><div class="step-title">Open a small door</div><span class="step-day">Day 6</span><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <p>First soft invitation. No big launch. Just let people know there's a way in. Once your Calibration Session is live, this becomes: "If something here is landing, I have a one-hour Calibration Session where we look at what's actually going on for you, and the €75 comes off whatever you book next. Comment or message me and I'll send the details."</p>
+            <p>Until that's ready, point them to your current way of working or simply invite a conversation in your messages.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">7</div><div class="step-title">Rest and notice</div><span class="step-day">Day 7</span><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <p>No posting today. Instead, notice. What felt easier than you expected? Which post felt the most like you? What did your body do when you hit publish, and did it settle?</p>
+            <p>Your design works through response, not forced production. This is the day you let the week land and pay attention to what your body is telling you about what's worth doing again.</p>
+          </div>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Your weekly rhythm after that</span><span class="sec-line"></span></div>
+        <p class="panel-intro" style="margin-bottom:14px;">Once the 7 days feel manageable, this is your ongoing pace. Three posts a week, plus stories when you feel like it. Not a content machine. A steady, sustainable rhythm that fits how you work.</p>
+
+        <div class="card"><div class="card-label">Monday &middot; Reflection</div><p class="body-text">A thought, a truth, or a piece of your story. Lead with your reality. This is the post that makes your person feel understood.</p></div>
+        <div class="card"><div class="card-label">Wednesday &middot; Mirror</div><p class="body-text">Speak directly to the woman you help. Name where she's stuck so precisely she saves the post. End with a soft invitation to talk, no pressure.</p></div>
+        <div class="card"><div class="card-label">Friday &middot; Your world</div><p class="body-text">Behind the scenes. Your work, your space, a glimpse of how you do what you do. Let people feel the experience of you before they ever book.</p></div>
+        <div class="card"><div class="card-label">Stories &middot; Whenever it's real</div><p class="body-text">Don't schedule these. Post when something genuine comes up. A moment in your day, a quick thought, a question for your audience. This is where your response-led design shines.</p></div>
+
+        <div class="callout" style="margin-top:16px;">
+          <div class="callout-title">The one rule</div>
+          <p>If a week gets full and you can only do one thing, do the Monday reflection. One real post that sounds like you beats five that sound like everyone else. Consistency matters less than truth.</p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           TAB 6: WHEN FEAR HITS  ·  EFT SCRIPT LIBRARY
+           Six scripts below. KEEP the ones this client needs,
+           DELETE the rest (each is wrapped in its own comment block).
+           All start closed. Each has a fear note + two rounds + breath cues + mantra.
+           Library: 1) Being seen  2) Rebrand identity  3) New website launch
+                    4) Pricing / charging your worth  5) Comparison spiral
+                    6) Showing up consistently / after a quiet launch
+      ═══════════════════════════════════════════════ -->
+      <div id="tab-fear" class="panel">
+        <h1 class="page-title">When Fear Hits</h1>
+        <span class="page-title-accent"></span>
+        <p class="panel-intro">For the moments it gets loud. Before you post, before you hit publish, when the old "who am I to do this" voice shows up. None of this means something is wrong. It means you're growing past an old version of yourself, and your body is catching up. Use whichever one fits the moment.</p>
+
+        <!-- SHARED HYPNOSIS AUDIO (every client gets this one). To add a client-specific audio, duplicate this block. -->
+        <div class="audio-card">
+          <div class="audio-head">
+            <div class="audio-icon"><i class="ti ti-headphones"></i></div>
+            <div>
+              <div class="audio-title">Safe to Be Seen</div>
+              <div class="audio-sub">Hypnosis &middot; find somewhere quiet, headphones on</div>
+            </div>
+          </div>
+          <p class="audio-desc">When the fear of being seen feels bigger than a tapping round can hold, put your headphones on and let this take you under. Lie back, close your eyes, and let your nervous system settle into safety. Don't listen while driving.</p>
+          <audio controls preload="none" src="https://dl.dropboxusercontent.com/scl/fi/s6gt72r4xagkfyjbbj5am/Hypnosis-for-overcoming-fear-of-being-seen.mp3?rlkey=sm6swiceog652s9delh5cx179&dl=1">Your browser doesn't support audio playback.</audio>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Out of Flight-or-Fight Breathwork</span><span class="sec-line"></span></div>
+        <div class="card">
+          <p class="body-text">Do this before you post, before a call, before you open something that makes you nervous. It takes your nervous system out of fight-or-flight so you're working from calm, not panic.</p>
+          <ul class="mini-list">
+            <li>Both feet flat on the floor. Feel them. Press down gently.</li>
+            <li>One hand on your heart, one on your belly. Let them rest there.</li>
+            <li>Breathe in through your nose for 4, hold for 4, then out through your mouth for 6, lips soft like you're breathing through a straw. The long exhale is what signals safe. Do this four times.</li>
+            <li>Say quietly: "I'm safe right now. Nothing here is an emergency."</li>
+            <li>Drop your shoulders. Unclench your jaw. Now go do the thing.</li>
+          </ul>
+
+          <div class="breath-wrap">
+            <div class="breath-stage">
+              <div class="breath-ring"></div>
+              <div class="breath-ring r2"></div>
+              <div class="breath-ring r3"></div>
+              <div class="breath-circle small" id="breathCircle">
+                <div class="breath-glow"></div>
+                <span class="breath-cue-text" id="breathCue">Ready</span>
+                <span class="breath-count" id="breathCount"></span>
+              </div>
+            </div>
+            <div class="breath-controls">
+              <button class="btn btn-grad" id="breathBtn"><i class="ti ti-player-play"></i> Start breathing</button>
+            </div>
+            <p class="breath-status" id="breathStatus">Four breaths. In through your nose, hold, out through your mouth like a straw. Follow the circle.</p>
+            <p class="breath-rounds" id="breathRounds"></p>
+          </div>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">EFT Tapping</span><span class="sec-line"></span></div>
+        <div class="card">
+          <p class="body-text">EFT (tapping) calms the part of your brain that fires when you feel exposed. You tap gently with two fingers on each point while saying the words out loud. Say them even if you don't fully believe them yet. The point isn't to lie to yourself. It's to let your body hear the truth alongside the fear.</p>
+          <p class="body-text">Tap each point 5 to 7 times as you say the line, moving through them in order. Each script has two rounds. The first round lets the fear speak, the second round turns it toward what's true. Notice where your fear sits on a scale of 1 to 10 before you start, then check again after both rounds.</p>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Open the one you need</div>
+          <p>Read the title of each script, notice which fear is loudest for you right now, and tap that one open. You don't have to do them all. Start with the one that matches what you're feeling, and do both rounds.</p>
+        </div>
+
+        <!-- ════ SCRIPT 1: FEAR OF BEING SEEN ════ -->
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">✦</div><div class="step-title">For fear of being seen &amp; putting yourself out there</div><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <div class="fear-note">
+              <div class="fear-note-label">About this fear</div>
+              <p>This is the fear that keeps your gifts hidden. You share something powerful and then brace, certain it will be misunderstood or ignored, so part of you would rather not post at all. It isn't vanity or weakness. It's an old protection that once kept you safe by keeping you small. Being seen feels risky because for a long time it was. This clears the bracing so the right people can finally find you.</p>
+            </div>
+            <div class="round-label">Round one &middot; let it speak</div>
+            <div class="setup-box"><div class="setup-label">Setup &middot; tap the side of your hand, say 3 times</div><div class="setup-text">Even though part of me is scared to be seen, and a part of me wants to stay small where it's safe, I deeply love and accept myself anyway.</div></div>
+            <div class="tap-row"><span class="tap-point">Eyebrow</span><span class="tap-words">All this fear of being seen.</span></div>
+            <div class="tap-row"><span class="tap-point">Side of eye</span><span class="tap-words">What if they misunderstand me. What if they scroll past.</span></div>
+            <div class="tap-row"><span class="tap-point">Under eye</span><span class="tap-words">I've stayed quiet for so long. It felt safer that way.</span></div>
+            <div class="tap-row"><span class="tap-point">Under nose</span><span class="tap-words">If I show the real me, maybe it'll be too much.</span></div>
+            <div class="tap-row"><span class="tap-point">Chin</span><span class="tap-words">So I hide a little. I water it down. I post nothing.</span></div>
+            <div class="tap-row"><span class="tap-point">Collarbone</span><span class="tap-words">This fear has been with me a long time.</span></div>
+            <div class="tap-row"><span class="tap-point">Under arm</span><span class="tap-words">My body learned that being seen wasn't safe.</span></div>
+            <div class="tap-row"><span class="tap-point">Top of head</span><span class="tap-words">I honor that it was trying to protect me.</span></div>
+            <div class="breath-cue"><i class="ti ti-wind"></i><p>Take a deep breath in, and slowly let it out.</p></div>
+            <div class="round-label">Round two &middot; turn it toward truth</div>
+            <div class="setup-box"><div class="setup-label">Setup &middot; tap the side of your hand, say 3 times</div><div class="setup-text">Even though it still feels a little scary, I'm allowed to be here, and I choose to let myself be seen anyway.</div></div>
+            <div class="tap-row"><span class="tap-point">Eyebrow</span><span class="tap-words">Staying invisible has a cost too.</span></div>
+            <div class="tap-row"><span class="tap-point">Side of eye</span><span class="tap-words">My people can't find me when I'm hiding.</span></div>
+            <div class="tap-row"><span class="tap-point">Under eye</span><span class="tap-words">It's not arrogant to be seen. It's how the right ones reach me.</span></div>
+            <div class="tap-row"><span class="tap-point">Under nose</span><span class="tap-words">I'm allowed to take up space.</span></div>
+            <div class="tap-row"><span class="tap-point">Chin</span><span class="tap-words">My work is worth seeing. So am I.</span></div>
+            <div class="tap-row"><span class="tap-point">Collarbone</span><span class="tap-words">I can be fully myself and still be safe.</span></div>
+            <div class="tap-row"><span class="tap-point">Under arm</span><span class="tap-words">Every time I let myself be seen, it gets easier.</span></div>
+            <div class="tap-row"><span class="tap-point">Top of head</span><span class="tap-words">I let myself be seen. I trust the right people are looking.</span></div>
+            <div class="breath-cue"><i class="ti ti-wind"></i><p>Take a deep breath in, and slowly let it out. Tune into how you feel now.</p></div>
+            <div class="mantra">I am safe to be seen. The right people are already looking for me.</div>
+          </div>
+        </div>
+
+        <!-- ════ SCRIPT 2: REBRAND IDENTITY ════ -->
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">✦</div><div class="step-title">For the rebrand wobble &middot; "is this really me?"</div><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <div class="fear-note">
+              <div class="fear-note-label">About this fear</div>
+              <p>This one shows up mid-rebrand, when the new brand feels unfamiliar and you start to wonder if you're abandoning who you were. It can make you want to shrink back to the version you already know, even though that version was too small for everything you hold. This isn't you becoming someone else. It's you finally making room for all of you. Use this when the new direction feels strange or you catch yourself second-guessing the whole thing.</p>
+            </div>
+            <div class="round-label">Round one &middot; let it speak</div>
+            <div class="setup-box"><div class="setup-label">Setup &middot; tap the side of your hand, say 3 times</div><div class="setup-text">Even though this new version of my business feels unfamiliar and part of me wonders if it's really me, I deeply love and accept myself anyway.</div></div>
+            <div class="tap-row"><span class="tap-point">Eyebrow</span><span class="tap-words">This new brand feels so unfamiliar.</span></div>
+            <div class="tap-row"><span class="tap-point">Side of eye</span><span class="tap-words">Part of me wants to go back to what I already know.</span></div>
+            <div class="tap-row"><span class="tap-point">Under eye</span><span class="tap-words">What if this bigger version isn't really me.</span></div>
+            <div class="tap-row"><span class="tap-point">Under nose</span><span class="tap-words">What if I'm leaving behind who I've always been.</span></div>
+            <div class="tap-row"><span class="tap-point">Chin</span><span class="tap-words">It feels strange to step into something this new.</span></div>
+            <div class="tap-row"><span class="tap-point">Collarbone</span><span class="tap-words">The old version was familiar. It was comfortable.</span></div>
+            <div class="tap-row"><span class="tap-point">Under arm</span><span class="tap-words">But it was also too small for everything I hold.</span></div>
+            <div class="tap-row"><span class="tap-point">Top of head</span><span class="tap-words">Maybe the discomfort is just growth.</span></div>
+            <div class="breath-cue"><i class="ti ti-wind"></i><p>Take a deep breath in, and slowly let it out.</p></div>
+            <div class="round-label">Round two &middot; turn it toward truth</div>
+            <div class="setup-box"><div class="setup-label">Setup &middot; tap the side of your hand, say 3 times</div><div class="setup-text">Even though it still feels new, I trust that I'm growing into it, and I choose to let it feel like home.</div></div>
+            <div class="tap-row"><span class="tap-point">Eyebrow</span><span class="tap-words">I'm not becoming someone else.</span></div>
+            <div class="tap-row"><span class="tap-point">Side of eye</span><span class="tap-words">I'm finally making room for all of me.</span></div>
+            <div class="tap-row"><span class="tap-point">Under eye</span><span class="tap-words">It's allowed to feel new before it feels like home.</span></div>
+            <div class="tap-row"><span class="tap-point">Under nose</span><span class="tap-words">My experience, my pivots, my whole path led me here.</span></div>
+            <div class="tap-row"><span class="tap-point">Chin</span><span class="tap-words">Nothing real about me is being left behind.</span></div>
+            <div class="tap-row"><span class="tap-point">Collarbone</span><span class="tap-words">This brand holds more of me, not less.</span></div>
+            <div class="tap-row"><span class="tap-point">Under arm</span><span class="tap-words">I'm allowed to grow into something bigger.</span></div>
+            <div class="tap-row"><span class="tap-point">Top of head</span><span class="tap-words">This is me. The fuller, truer version. And I'm growing into it.</span></div>
+            <div class="breath-cue"><i class="ti ti-wind"></i><p>Take a deep breath in, and slowly let it out. Tune into how you feel now.</p></div>
+            <div class="mantra">I'm not too many things. I'm finally building something big enough to hold all of me.</div>
+          </div>
+        </div>
+
+        <!-- ════ SCRIPT 3: NEW WEBSITE LAUNCH ════ -->
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">✦</div><div class="step-title">For launching the new website &middot; "what if it flops again"</div><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <div class="fear-note">
+              <div class="fear-note-label">About this fear</div>
+              <p>This is the one that lives in your body from the last time you put something out and heard nothing back. It hurt, and now part of you braces for that silence again, so you might want to keep your new site quiet just in case. The difference this time is real. This wasn't guessed at. It was built from who you actually are. Use this in the days around your site going live, or any time the memory of a quiet launch tightens your chest.</p>
+            </div>
+            <div class="round-label">Round one &middot; let it speak</div>
+            <div class="setup-box"><div class="setup-label">Setup &middot; tap the side of your hand, say 3 times</div><div class="setup-text">Even though I've launched before and it hurt when no one came, and part of me is bracing for that again, I deeply love and accept myself anyway.</div></div>
+            <div class="tap-row"><span class="tap-point">Eyebrow</span><span class="tap-words">I remember launching before and hearing nothing back.</span></div>
+            <div class="tap-row"><span class="tap-point">Side of eye</span><span class="tap-words">It shattered something in me.</span></div>
+            <div class="tap-row"><span class="tap-point">Under eye</span><span class="tap-words">I don't want to feel that again.</span></div>
+            <div class="tap-row"><span class="tap-point">Under nose</span><span class="tap-words">So part of me wants to keep this site hidden, just in case.</span></div>
+            <div class="tap-row"><span class="tap-point">Chin</span><span class="tap-words">My body is bracing for the silence.</span></div>
+            <div class="tap-row"><span class="tap-point">Collarbone</span><span class="tap-words">That fear makes sense. It's trying to protect me from hurting again.</span></div>
+            <div class="tap-row"><span class="tap-point">Under arm</span><span class="tap-words">I honor how much I poured in last time.</span></div>
+            <div class="tap-row"><span class="tap-point">Top of head</span><span class="tap-words">It's safe to feel this fear and keep going.</span></div>
+            <div class="breath-cue"><i class="ti ti-wind"></i><p>Take a deep breath in, and slowly let it out.</p></div>
+            <div class="round-label">Round two &middot; turn it toward truth</div>
+            <div class="setup-box"><div class="setup-label">Setup &middot; tap the side of your hand, say 3 times</div><div class="setup-text">Even though it didn't work before, I'm doing this differently now, and I choose to share my work anyway.</div></div>
+            <div class="tap-row"><span class="tap-point">Eyebrow</span><span class="tap-words">This time I'm not guessing.</span></div>
+            <div class="tap-row"><span class="tap-point">Side of eye</span><span class="tap-words">This was built from who I actually am.</span></div>
+            <div class="tap-row"><span class="tap-point">Under eye</span><span class="tap-words">This site finally reflects me. It's allowed to be seen.</span></div>
+            <div class="tap-row"><span class="tap-point">Under nose</span><span class="tap-words">One quiet response doesn't mean my work doesn't matter.</span></div>
+            <div class="tap-row"><span class="tap-point">Chin</span><span class="tap-words">I'm proud of what I built. That pride is mine no matter what.</span></div>
+            <div class="tap-row"><span class="tap-point">Collarbone</span><span class="tap-words">The right people are out there looking for exactly this.</span></div>
+            <div class="tap-row"><span class="tap-point">Under arm</span><span class="tap-words">I'm not doing this alone this time.</span></div>
+            <div class="tap-row"><span class="tap-point">Top of head</span><span class="tap-words">I share my work with an open heart and trust the right people will find it.</span></div>
+            <div class="breath-cue"><i class="ti ti-wind"></i><p>Take a deep breath in, and slowly let it out. Tune into how you feel now.</p></div>
+            <div class="mantra">This is me, and it's magnetic. I built it from my truth, and the right people will feel it.</div>
+          </div>
+        </div>
+
+        <!-- ════ SCRIPT 4: PRICING / CHARGING YOUR WORTH ════ -->
+        <div class="step-card">
+          <div class="step-head"><div class="step-num">✦</div><div class="step-title">For saying your price &middot; "what if it's too much"</div><i class="ti ti-chevron-down step-toggle"></i></div>
+          <div class="step-body">
+            <div class="fear-note">
+              <div class="fear-note-label">About this fear</div>
+              <p>This is the one that lives in your throat and your stomach the moment you go to say your price out loud. You add more to the offer, you soften it, you almost apologize for it. Knowing your worth in your head and feeling safe to charge for it in your body are two different things. This isn't greed. Pricing for the depth of what you do is how you keep doing it without burning out. Use this before a sales conversation, before you publish a price, or any time you catch yourself wanting to discount.</p>
+            </div>
+            <div class="round-label">Round one &middot; let it speak</div>
+            <div class="setup-box"><div class="setup-label">Setup &middot; tap the side of your hand, say 3 times</div><div class="setup-text">Even though saying my price makes my whole body tense, and part of me is scared it's too much, I deeply love and accept myself anyway.</div></div>
+            <div class="tap-row"><span class="tap-point">Eyebrow</span><span class="tap-words">This tightness when I think about my price.</span></div>
+            <div class="tap-row"><span class="tap-point">Side of eye</span><span class="tap-words">What if they think it's too much.</span></div>
+            <div class="tap-row"><span class="tap-point">Under eye</span><span class="tap-words">What if they say no. What if they judge me for asking.</span></div>
+            <div class="tap-row"><span class="tap-point">Under nose</span><span class="tap-words">So I undercharge. I add more. I make it safe.</span></div>
+            <div class="tap-row"><span class="tap-point">Chin</span><span class="tap-words">I almost apologize for what I charge.</span></div>
+            <div class="tap-row"><span class="tap-point">Collarbone</span><span class="tap-words">Somewhere I learned my worth was up for debate.</span></div>
+            <div class="tap-row"><span class="tap-point">Under arm</span><span class="tap-words">All this fear around money and value.</span></div>
+            <div class="tap-row"><span class="tap-point">Top of head</span><span class="tap-words">I honor that this fear has been trying to keep me safe.</span></div>
+            <div class="breath-cue"><i class="ti ti-wind"></i><p>Take a deep breath in, and slowly let it out.</p></div>
+            <div class="round-label">Round two &middot; turn it toward truth</div>
+            <div class="setup-box"><div class="setup-label">Setup &middot; tap the side of your hand, say 3 times</div><div class="setup-text">Even though it still feels tender, my work is worth it, and I choose to say my price with a steady voice.</div></div>
+            <div class="tap-row"><span class="tap-point">Eyebrow</span><span class="tap-words">My price reflects the depth of what I do.</span></div>
+            <div class="tap-row"><span class="tap-point">Side of eye</span><span class="tap-words">The right people are happy to pay for that.</span></div>
+            <div class="tap-row"><span class="tap-point">Under eye</span><span class="tap-words">A no isn't a judgment. It's just a no.</span></div>
+            <div class="tap-row"><span class="tap-point">Under nose</span><span class="tap-words">I don't have to overgive to be worth it.</span></div>
+            <div class="tap-row"><span class="tap-point">Chin</span><span class="tap-words">Charging well is how I keep doing this work.</span></div>
+            <div class="tap-row"><span class="tap-point">Collarbone</span><span class="tap-words">I can say my number and let it land.</span></div>
+            <div class="tap-row"><span class="tap-point">Under arm</span><span class="tap-words">My worth was never up for debate.</span></div>
+            <div class="tap-row"><span class="tap-point">Top of head</span><span class="tap-words">I say my price with a steady voice and an open heart.</span></div>
+            <div class="breath-cue"><i class="ti ti-wind"></i><p>Take a deep breath in, and slowly let it out. Tune into how you feel now.</p></div>
+            <div class="mantra">My price is a clear yes. The right people meet it without flinching, and so do I.</div>
+          </div>
+        </div>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">If it's still loud</span><span class="sec-line"></span></div>
+        <div class="card">
+          <p class="body-text">Some days tapping takes the edge off and some days it doesn't fully clear it, and both are normal. If the fear is really gripping you, send me a Voxer. Sometimes you just need to say it out loud to someone who gets it, and we can work through it together on our next call. You don't have to push through the hard parts alone. That's what I'm here for.</p>
+        </div>
+      </div>
+
+      <!-- ═══ TAB: PULL A CARD (ORACLE, choose 1 of 3) ═══ -->
+      <div id="tab-oracle" class="panel">
+        <h1 class="page-title">Pull a Card</h1>
+        <span class="page-title-accent"></span>
+        <p class="panel-intro">Take a breath and bring your question or your vision to mind. When you feel ready, choose the card that's calling you. Let it answer. There's no wrong card and no bad pull. Whatever comes is what's yours to hear today.</p>
+
+        <div class="oracle-stage">
+          <div class="oracle-spread" id="spread">
+            <div class="oc" data-choose="0">
+              <div class="oc-inner">
+                <div class="oc-face oc-back"><div class="oc-back-img" data-back></div><div class="oc-back-art"><span class="oc-back-star">✦</span></div></div>
+                <div class="oc-face oc-front"><div class="oc-face-img" data-faceimg><span class="oc-face-glyph" data-glyph>✦</span><span class="oc-face-ph-name" data-name></span><img class="oc-face-photo" data-photo alt="" onerror="this.style.display='none'"></div></div>
+              </div>
+            </div>
+            <div class="oc" data-choose="1">
+              <div class="oc-inner">
+                <div class="oc-face oc-back"><div class="oc-back-img" data-back></div><div class="oc-back-art"><span class="oc-back-star">✦</span></div></div>
+                <div class="oc-face oc-front"><div class="oc-face-img" data-faceimg><span class="oc-face-glyph" data-glyph>✦</span><span class="oc-face-ph-name" data-name></span><img class="oc-face-photo" data-photo alt="" onerror="this.style.display='none'"></div></div>
+              </div>
+            </div>
+            <div class="oc" data-choose="2">
+              <div class="oc-inner">
+                <div class="oc-face oc-back"><div class="oc-back-img" data-back></div><div class="oc-back-art"><span class="oc-back-star">✦</span></div></div>
+                <div class="oc-face oc-front"><div class="oc-face-img" data-faceimg><span class="oc-face-glyph" data-glyph>✦</span><span class="oc-face-ph-name" data-name></span><img class="oc-face-photo" data-photo alt="" onerror="this.style.display='none'"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="oracle-hint" id="oracleHint">Three cards in front of you. Choose the one that's calling you.</p>
+
+          <div class="oracle-reading" id="reading">
+            <div class="reading-card">
+              <div class="reading-name" id="rName"></div>
+              <div class="reading-essence" id="rEssence"></div>
+              <div class="reading-why">
+                <div class="reading-why-label">Why this card found you</div>
+                <p id="rWhy"></p>
+              </div>
+              <div class="reading-message" id="rMessage"></div>
+              <div class="reading-practice">
+                <div class="reading-practice-label">Carry this today</div>
+                <p id="rPractice"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="oracle-again" id="again">
+            <button class="btn btn-outline" id="oracle-again-btn"><i class="ti ti-refresh"></i> Pull again</button>
+          </div>
+        </div>
+      </div>
+
+            <!-- ═══════════════════════════════════════════════
+           TAB 7: FROM OUR CALL
+           Replace with the latest call summary each time.
+      ═══════════════════════════════════════════════ -->
+      <div id="tab-call" class="panel">
+        <h1 class="page-title">From Our Call</h1>
+        <span class="page-title-accent"></span>
+        <p class="panel-intro">A short recap from our most recent call, so the decisions and the energy stay fresh between sessions. I'll update this each time we meet, so you can always come back here and remember where we landed.</p>
+
+        <div class="sec-head"><span class="sec-icon">✦</span><span class="sec-title">Latest update</span><span class="sec-line"></span></div>
+        <div class="card">
+          <div class="note-entry">
+            <div class="note-date">✦ Monday, July 20, 2026</div>
+            <div class="note-text">Good one today. We got into the real building of your site, and a few things came together nicely.<br><br>Your site is going to be built fresh in Hostinger's own AI builder, since the old one can't be edited the drag-and-drop way. Here's the part that takes the pressure off: the website is just your beautiful front window. All your booking, payments, and those lovely automated video invitations stay right where they already work well, in Zoho. We just link to them. Nothing to rebuild there.<br><br>We locked your three offerings and how they sit together: Quantum Journeys Hypnosis (single sessions and a one-month container), Coherence Consulting for your one-on-one work, and The Coherence Code as your 12-week program, self-led or with you. And your Calibration Session is the one clear door for everyone: one hour, €75, no commitment, and that €75 comes off whatever they book next. Simple and inviting, exactly how you want it.<br><br>On the feel of it: light, soothing, ethereal. Water, softness, a little sensuality, one strong portrait of you and otherwise nothing too personal. Playfair and Poppins for your fonts, and a touch of magenta as a punctual pop on the lighter pages. For your Doorways on the Quantum Journeys page, we're going with symbolic image cards you can actually see, ethereal, not literal doors, around eight of them. We're swapping House of Love and Temple of Healing for your two new ones, including your Executive Table.<br><br>Your homework is the content doc, page by page, plus your doorway descriptions and image preferences, and a look through the Canva mood board to swap anything that isn't you. I'm building a draft mockup in Lovable and testing it in Hostinger while you do that. We're properly moving now.</div>
+          </div>
+        </div>
+
+        <div class="signoff">
+          <p>I see you. I believe in you.<br>To living our dreams.</p>
+          <div class="name">- Aurailia</div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /body -->
+</div><!-- /app -->
+
+<div class="toast" id="toast">Saved ✦</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   PER-CLIENT SETUP  ·  change these for each client
+   ───────────────────────────────────────────────────────────────
+   1. CLIENT_KEY: unique per client (no spaces). This isolates their
+      saved checkboxes, edits, and statuses from every other client.
+   2. DEFAULT_TODO: their to-do items, split mine / aurailia.
+   3. DEFAULT_PROGRESS: their build phases and starting statuses.
+   Everything else (styles, scripts, behavior) stays the same.
+   ═══════════════════════════════════════════════════════════════ */
+var CLIENT_KEY = 'aurailia_portal_amala';
+
+/* ───────── TO-DO DATA ─────────
+   section = group heading, badge = optional pill (or ''), items = array of strings */
+var DEFAULT_TODO = {
+  mine: [
+    { section: 'Start here', badge: 'THIS WEEK', items: [
+      'Prepare your content doc, page by page (Quantum Journeys Hypnosis, Coherence Consulting, The Coherence Code): service descriptions, session durations, package options, pricing, and any extras like Voxer support or follow-up emails',
+      'Write descriptions and image preferences for all your doorways (around 8), naming your 2 new custom ones that replace House of Love and Temple of Healing'
+    ]},
+    { section: 'Design & pricing', badge: '', items: [
+      'Review the Canva mood board I sent and swap or add any images using Canva\u2019s photo library',
+      'Finalise your Coherence Consulting pricing and container (minimum 3-session package, ~2-month), and let me know if you want extra tiers'
+    ]},
+    { section: 'Hosting', badge: '', items: [
+      'Look into why extra websites can\u2019t be added under your current Hostinger plan, and clarify your hosting options'
+    ]}
+  ],
+  aurailia: [
+    { section: 'On now', badge: 'IN PROGRESS', items: [
+      'Build a draft mockup in Lovable using your existing assets, and test how it renders in Hostinger\u2019s AI builder',
+      'Finish and send you this portal'
+    ]},
+    { section: 'Once your content doc lands', badge: '', items: [
+      'Generate your ethereal doorway images in ChatGPT from your descriptions',
+      'Wireframe the pages, then build in Lovable and bring it into Hostinger'
+    ]},
+    { section: 'Next', badge: '', items: [
+      'Help you finalise pricing across your offerings, using the benchmarks we discussed as a reference',
+      'Send you a written summary of our meeting'
+    ]}
+  ]
+};
+
+/* ───────── PROGRESS DATA ─────────
+   Each row: ['Label', 'status']  where status is one of:
+   'done' | 'inprog' | 'notstart' | 'pending'
+   The four group keys (start/brand/website/call) map to the four
+   cards in Tab 4. Relabel the headings in the HTML to match. */
+var DEFAULT_PROGRESS = {
+  start: [
+    ['Brand palette + fonts locked (sage, Playfair, Poppins)', 'done'],
+    ['Magenta accent + light, ethereal imagery direction', 'done'],
+    ['Canva mood board shared for you to review', 'inprog'],
+    ['Your photos + video for the media library', 'pending']
+  ],
+  brand: [
+    ['Your content doc, page by page', 'pending'],
+    ['Draft mockup in Lovable + tested in Hostinger', 'inprog'],
+    ['Doorway images generated in ChatGPT', 'notstart'],
+    ['Pages built and brought into Hostinger', 'notstart'],
+    ['Extra Hostinger sites under your plan checked', 'pending']
+  ],
+  website: [
+    ['School.com chosen for Phase 1', 'done'],
+    ['Your School community set up', 'pending'],
+    ['"Not sure where to start" quiz built + hosted on GitHub', 'pending']
+  ],
+  call: [
+    ['Calibration Session confirmed (1 hr, \u20ac75, credit)', 'done'],
+    ['Three offerings named and structured', 'done'],
+    ['Zoho stays for booking, payments, emails', 'done'],
+    ['Coherence Consulting pricing + container finalised', 'pending'],
+    ['Quantum Journeys + Coherence Code pricing set', 'notstart']
+  ]
+};
+
+/* ═══════════ NOTHING BELOW NEEDS EDITING PER CLIENT ═══════════ */
+
+var STATUS_CYCLE = ['done', 'inprog', 'notstart', 'pending'];
+var STATUS_CFG = {
+  done:     { pill: 'pill-done',     label: 'Done',           bar: 'done' },
+  inprog:   { pill: 'pill-inprog',   label: 'In progress',    bar: 'inprog' },
+  notstart: { pill: 'pill-notstart', label: 'Not started',    bar: 'notstart' },
+  pending:  { pill: 'pill-pending',  label: 'Waiting on you', bar: 'planned' }
+};
+
+function load(key, fallback) {
+  try { var v = localStorage.getItem(CLIENT_KEY + '_' + key); return v ? JSON.parse(v) : fallback; }
+  catch(e) { return fallback; }
+}
+function save(key, val) {
+  try { localStorage.setItem(CLIENT_KEY + '_' + key, JSON.stringify(val)); } catch(e) {}
+}
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg || 'Saved ✦';
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 1600);
+}
+
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  var panel = document.getElementById('tab-' + name);
+  if (panel) panel.classList.add('active');
+  document.querySelector('.main').scrollTop = 0;
+}
+function switchOwner(name, el) {
+  document.querySelectorAll('.owner-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.owner-section').forEach(function(s){ s.classList.remove('active'); });
+  el.classList.add('active');
+  var sec = document.getElementById('owner-' + name);
+  if (sec) sec.classList.add('active');
+}
+/* ═══════════ BREATHING CIRCLE (4 in · 4 hold · 6 out, x4) ═══════════ */
+var breathRunning = false, breathTimers = [], breathRound = 0;
+var BREATH_TOTAL = 4; // number of full breaths
+var BREATH_PHASES = [
+  { label: 'In through nose', dur: 4000, cls: 'big' },
+  { label: 'Hold',       dur: 4000, cls: 'big' },
+  { label: 'Out through straw',dur: 6000, cls: 'small' }
+];
+function breathClear() { breathTimers.forEach(clearTimeout); breathTimers = []; }
+function breathReset() {
+  breathClear(); breathRunning = false; breathRound = 0;
+  var c = document.getElementById('breathCircle');
+  if (c) { c.classList.remove('run','big'); c.classList.add('small'); c.style.removeProperty('--phase-dur'); }
+  setText('breathCue','Ready'); setText('breathCount','');
+  setText('breathStatus','Four breaths. In through your nose, hold, out through your mouth like a straw. Follow the circle.');
+  setText('breathRounds','');
+  var b = document.getElementById('breathBtn');
+  if (b) b.innerHTML = '<i class="ti ti-player-play"></i> Start breathing';
+}
+function setText(id, t) { var el = document.getElementById(id); if (el) el.textContent = t; }
+function toggleBreath() {
+  if (breathRunning) { breathReset(); return; }
+  breathRunning = true; breathRound = 0;
+  var b = document.getElementById('breathBtn');
+  if (b) b.innerHTML = '<i class="ti ti-player-stop"></i> Stop';
+  runBreathRound();
+}
+function runBreathRound() {
+  if (!breathRunning) return;
+  if (breathRound >= BREATH_TOTAL) { finishBreath(); return; }
+  breathRound++;
+  setText('breathRounds', 'Breath ' + breathRound + ' of ' + BREATH_TOTAL);
+  runPhase(0);
+}
+function runPhase(i) {
+  if (!breathRunning) return;
+  if (i >= BREATH_PHASES.length) { runBreathRound(); return; }
+  var p = BREATH_PHASES[i];
+  var c = document.getElementById('breathCircle');
+  setText('breathCue', p.label);
+  if (c) {
+    c.classList.add('run');
+    c.style.setProperty('--phase-dur', (p.dur/1000) + 's');
+    c.classList.remove('big','small');
+    void c.offsetWidth; // restart transition
+    c.classList.add(p.cls);
+  }
+  // simple countdown
+  var secs = Math.round(p.dur/1000), left = secs;
+  setText('breathCount', left + '');
+  var tick = setInterval(function(){
+    left--; if (left > 0) setText('breathCount', left + ''); else setText('breathCount','');
+  }, 1000);
+  breathTimers.push(setTimeout(function(){ clearInterval(tick); runPhase(i+1); }, p.dur));
+}
+function finishBreath() {
+  breathClear(); breathRunning = false;
+  var c = document.getElementById('breathCircle');
+  if (c) { c.classList.remove('run','big'); c.classList.add('small'); }
+  setText('breathCue','Settled'); setText('breathCount','');
+  setText('breathStatus','Notice how your body feels now. Softer, slower, more here. You can go do the thing.');
+  setText('breathRounds','');
+  var b = document.getElementById('breathBtn');
+  if (b) b.innerHTML = '<i class="ti ti-refresh"></i> Again';
+}
+
+function toggleStep(card) { card.classList.toggle('open'); }
+
+var todoData = load('todo', null) || JSON.parse(JSON.stringify(DEFAULT_TODO));
+var checks = load('checks', {});
+var editing = false;
+
+function persistTodo() { save('todo', todoData); }
+
+function renderTodo() {
+  ['mine', 'aurailia'].forEach(function(owner) {
+    var container = document.getElementById('owner-' + owner);
+    container.innerHTML = '';
+    todoData[owner].forEach(function(group, gi) {
+      var head = document.createElement('div');
+      head.className = 'sec-head';
+      head.innerHTML = '<span class="sec-icon">✦</span><span class="sec-title">' + escapeHtml(group.section) + '</span><span class="sec-line"></span>';
+      container.appendChild(head);
+      var card = document.createElement('div');
+      card.className = 'card';
+      if (group.badge) {
+        var ah = document.createElement('div');
+        ah.className = 'action-head';
+        ah.innerHTML = (owner === 'mine' ? 'To do' : 'In my hands') + ' <span class="urgent-badge">' + escapeHtml(group.badge) + '</span>';
+        card.appendChild(ah);
+      }
+      group.items.forEach(function(text, ii) {
+        var row = document.createElement('div');
+        row.className = 'aitem';
+        var ckey = owner + '|' + gi + '|' + text;
+        var isChecked = checks[ckey] === true;
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = isChecked;
+        cb.onchange = function() {
+          checks[ckey] = cb.checked;
+          save('checks', checks);
+          span.classList.toggle('checked', cb.checked);
+        };
+        var span = document.createElement('span');
+        span.className = 'aitem-text' + (isChecked ? ' checked' : '');
+        span.textContent = text;
+        span.setAttribute('contenteditable', editing ? 'true' : 'false');
+        span.onblur = function() {
+          var newText = span.textContent.trim();
+          if (newText && newText !== text) {
+            todoData[owner][gi].items[ii] = newText;
+            delete checks[ckey];
+            checks[owner + '|' + gi + '|' + newText] = isChecked;
+            save('checks', checks);
+            persistTodo();
+            showToast('Updated ✦');
+            text = newText;
+          }
+        };
+        var del = document.createElement('button');
+        del.className = 'aitem-del';
+        del.innerHTML = '<i class="ti ti-trash"></i>';
+        del.title = 'Delete this item';
+        del.onclick = function(e) {
+          e.stopPropagation();
+          todoData[owner][gi].items.splice(ii, 1);
+          delete checks[ckey];
+          save('checks', checks);
+          persistTodo();
+          renderTodo();
+          showToast('Removed ✦');
+        };
+        row.appendChild(cb);
+        row.appendChild(span);
+        row.appendChild(del);
+        card.appendChild(row);
+      });
+      var addRow = document.createElement('div');
+      addRow.className = 'add-row';
+      var input = document.createElement('input');
+      input.className = 'add-input';
+      input.placeholder = 'Add a new item to "' + group.section + '"...';
+      input.onkeydown = function(e) { if (e.key === 'Enter') { addItem(owner, gi, input); } };
+      var addBtn = document.createElement('button');
+      addBtn.className = 'btn btn-grad btn-sm';
+      addBtn.innerHTML = '<i class="ti ti-plus"></i> Add';
+      addBtn.onclick = function() { addItem(owner, gi, input); };
+      addRow.appendChild(input);
+      addRow.appendChild(addBtn);
+      card.appendChild(addRow);
+      container.appendChild(card);
+    });
+  });
+}
+function addItem(owner, gi, input) {
+  var text = input.value.trim();
+  if (!text) return;
+  todoData[owner][gi].items.push(text);
+  persistTodo();
+  renderTodo();
+  showToast('Added ✦');
+}
+function toggleEdit() {
+  editing = !editing;
+  document.body.classList.toggle('editing', editing);
+  var btn = document.getElementById('todo-edit-btn');
+  var hint = document.getElementById('todo-edit-hint');
+  if (editing) {
+    btn.classList.add('on');
+    btn.innerHTML = '<i class="ti ti-check"></i> Done editing';
+    hint.textContent = 'Tap any item to rewrite it, the trash icon to remove, or add new items below each list';
+  } else {
+    btn.classList.remove('on');
+    btn.innerHTML = '<i class="ti ti-pencil"></i> Edit list';
+    hint.textContent = 'Check items off as you finish them';
+  }
+  renderTodo();
+}
+function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+var statusOverrides = load('status', {});
+function renderProgress() {
+  Object.keys(DEFAULT_PROGRESS).forEach(function(group) {
+    var card = document.getElementById('prog-' + group);
+    if (!card) return;
+    card.innerHTML = '';
+    DEFAULT_PROGRESS[group].forEach(function(row) {
+      var label = row[0];
+      var key = group + '|' + label;
+      var status = statusOverrides[key] || row[1];
+      var cfg = STATUS_CFG[status] || STATUS_CFG.notstart;
+      var prow = document.createElement('div');
+      prow.className = 'prow';
+      prow.innerHTML =
+        '<span class="prow-label">' + escapeHtml(label) + '</span>' +
+        '<div class="pbar-wrap"><div class="pbar-track"><div class="pbar-fill ' + cfg.bar + '"></div></div></div>' +
+        '<span class="pill pill-clickable ' + cfg.pill + '">' + cfg.label + '</span>';
+      var pill = prow.querySelector('.pill');
+      pill.title = 'Tap to change status';
+      pill.onclick = function() {
+        var cur = statusOverrides[key] || row[1];
+        var next = STATUS_CYCLE[(STATUS_CYCLE.indexOf(cur) + 1) % STATUS_CYCLE.length];
+        statusOverrides[key] = next;
+        save('status', statusOverrides);
+        renderProgress();
+        showToast('Status updated ✦');
+      };
+      card.appendChild(prow);
+    });
+  });
+}
+
+/* ═══════════ ORACLE DECK ═══════════
+   20 cards, single-card pull from a choose-one-of-three layout.
+   Card art is SHARED across all clients (images/ folder). The readings
+   below are the UNIVERSAL versions. When building a client's portal,
+   tune each card's why / message / practice to THEIR Human Design if
+   you have their chart (type, profile, authority). Card names, essences,
+   glyphs, and image paths stay the same for everyone. */
+var CARD_BACK_URL = 'images/card-back.png';
+// Three card-back variations, shuffled across the three positions on each visit.
+// Save yours as images/card-back-1.png, card-back-2.png, card-back-3.png.
+// If a file is missing, that card shows the painted gradient placeholder.
+var CARD_BACKS = ['images/card-back-1.png', 'images/card-back-2.png', 'images/card-back-3.png'];
+
+var ORACLE_DECK = [
+  { name: 'The Witness', essence: 'You are allowed to be seen', glyph: '👁', image: 'images/01-witness.png',
+    why: 'You drew this because part of you is ready to be seen and part of you is still bracing. The card came to tell you the bracing can soften now.',
+    message: 'Your whole path, every version you have tried, is not a mess to hide. It is the credibility itself. People connect with the woman who is honest about the journey, not the polished expert. Let yourself be seen mid-build.',
+    practice: 'Share one real, unpolished moment from where you actually are today.' },
+  { name: 'The Slow Yes', essence: 'Your timing is not late', glyph: '🌙', image: 'images/02-slow-yes.png',
+    why: 'You pulled this because somewhere you have been measuring yourself against a clock that was never yours. The card came to slow you down on purpose.',
+    message: 'You are not behind. You are moving at the pace your body trusts. The slower season you are in is not a delay, it is the foundation setting. Let the wave finish before you decide what it means.',
+    practice: 'Let one thing take the time it needs instead of forcing the pace today.' },
+  { name: 'The Vessel', essence: 'You hold more than you show', glyph: '🏺', image: 'images/03-vessel.png',
+    why: 'This found you because you have wondered if you are too many things. The card came to settle it.',
+    message: 'You are not scattered. The many gifts you hold are not separate businesses. They are one vessel. Stop trying to cut parts of yourself away to look focused. Integration, not subtraction, is your path.',
+    practice: 'Name the one thread that quietly connects everything you do.' },
+  { name: 'The Worth', essence: 'Say the number', glyph: '💎', image: 'images/04-worth.png',
+    why: 'You drew this because there is a price or an ask sitting in your throat right now. The card came to help you say it.',
+    message: 'Your value was never up for debate. The tightness you feel around money is old, not true. What you offer carries depth, and the right people meet that without flinching. Let your price be a clear yes.',
+    practice: 'Say your price out loud, alone, until your voice stops wavering.' },
+  { name: 'The Return', essence: 'Come home to yourself', glyph: '🕊', image: 'images/05-return.png',
+    why: 'This came through because you have been building from borrowed strategy, and a quiet part of you feels the friction. It is calling you home.',
+    message: 'You have spent enough time trying to fit a shape that was never yours. The card calls you back to your own frequency. Build from what is true for you, and watch how much lighter the work becomes.',
+    practice: 'Drop one thing you have been doing because you thought you should.' },
+  { name: 'The Maker', essence: 'Your creativity is the gift', glyph: '🎨', image: 'images/06-maker.png',
+    why: 'You pulled this because the creative part of you has been waiting behind the logistics. It wants back in.',
+    message: 'The part of you that makes, that feels, that works through color and image and depth, is not separate from your business. It is the heart of it. Let the maker lead today and watch your energy come back.',
+    practice: 'Create one small thing for the joy of it, with no outcome attached.' },
+  { name: 'The Threshold', essence: 'You are mid-becoming', glyph: '🚪', image: 'images/07-threshold.png',
+    why: 'This found you mid-change, in that unfamiliar in-between. The card came to tell you to keep walking through.',
+    message: 'You are standing in the doorway between who you were and who you are growing into. It feels unfamiliar because it is new, not because it is wrong. Keep walking. The strange feeling is just the size of the change.',
+    practice: 'Speak about the version of you on the other side as if she is already here.' },
+  { name: 'The Rest', essence: 'Stillness is part of the work', glyph: '🌿', image: 'images/08-rest.png',
+    why: 'You drew this because some part of you is tired and has been calling it laziness. The card came to reframe the rest you actually need.',
+    message: 'Not everything is meant to be pushed. The card gives you permission to stop, to let the field go quiet, to trust that things are growing under the surface. Your worth is not measured by how hard you grind.',
+    practice: 'Take one true pause today with nothing to produce from it.' },
+  { name: 'The Mirror', essence: 'Your people recognize you', glyph: '🪞', image: 'images/09-mirror.png',
+    why: 'This came through because you have been tempted to push or convince, when your whole design runs on being recognized. The card came to remind you your people already see you.',
+    message: 'You are a Projector. You do not chase, you get recognized and invited in. When you speak from your truth, the right ones feel it before they understand it. Be clear enough that the people meant for you can see themselves in you, then let them come to you.',
+    practice: 'Write one sentence so clear that your exact person would feel seen by it.' },
+  { name: 'The Root', essence: 'Build from the ground', glyph: '🌳', image: 'images/10-root.png',
+    why: 'You pulled this because the unglamorous foundation work has tested your patience. The card came to tell you it matters more than the quick win.',
+    message: 'Before the bloom comes the root. The foundation you are laying now is what lets everything you grow later actually hold. Trust the structure. It is not slowing you down, it is making you unshakeable.',
+    practice: 'Tend one foundational thing you have been skipping past.' },
+  { name: 'The Flame', essence: 'Let yourself want it', glyph: '🔥', image: 'images/11-flame.png',
+    why: 'This found you because there is something you want that you have kept small. The card came to give you permission to want it out loud.',
+    message: 'Desire is not something to apologize for. The card asks you to stop dimming what you actually want. Your big vision is not too much. It is a signal pointing you toward the life that is yours to build.',
+    practice: 'Say out loud the thing you want but have been afraid to claim.' },
+  { name: 'The Offering', essence: 'Receiving is allowed', glyph: '🤲', image: 'images/12-offering.png',
+    why: 'You drew this because you give so easily and receive so carefully. The card came to turn that around and let something good land.',
+    message: 'You give out in every session, often past the time, often past what you charged. Let it come back. Receive the support, the money, the help, without bracing for the catch. You are allowed to be held by what you built.',
+    practice: 'Accept one thing today without deflecting or over-explaining.' },
+  { name: 'The Unhurried', essence: 'Depth over speed', glyph: '🌊', image: 'images/13-unhurried.png',
+    why: 'This came through because you have felt pressure to go faster and wider when your real gift is depth. The card came to release you from that race.',
+    message: 'You are a Projector, not built for the fast, shallow, high-volume version of this. Your gift is depth, and depth works in focused bursts with real rest between them. Go deep with the few who are meant for you, and let that be more than enough.',
+    practice: 'Choose depth over reach in one decision today.' },
+  { name: 'The Voice', essence: 'Stop editing yourself', glyph: '🗝', image: 'images/14-voice.png',
+    why: 'You pulled this because you water yourself down right before you share. The card came to tell you the unedited version is the magnetic one.',
+    message: 'You smooth yourself into something safe right before you hit publish, certain the real you is too much. It is not. Your weird, your depth, your truth, that is the part that draws your people. Let it through.',
+    practice: 'Post something today without softening or editing it first.' },
+  { name: 'The Tender', essence: 'Be gentle with the scared part', glyph: '🫧', image: 'images/15-tender.png',
+    why: 'This found you because a younger, scared part of you has been loud lately. The card came to meet that part with gentleness instead of force.',
+    message: 'The fear that rises before you are seen is not your enemy. It is a part of you that once needed protecting. You meet it. Hand on your heart, a breath, and you move forward with it riding alongside you.',
+    practice: 'Put a hand on your heart and tell the scared part it is safe now.' },
+  { name: 'The Compass', essence: 'Your body already knows', glyph: '🧭', image: 'images/16-compass.png',
+    why: 'You drew this because you have been waiting for your mind to feel sure before you move. The card came to point you back to your gut.',
+    message: 'Your authority is Splenic. Your truth arrives as a quiet response in your body, a quick yes or no, in the moment, before your mind catches up. It speaks once and it speaks softly. Stop waiting to feel mentally certain. Feel the answer rise, and trust it the first time.',
+    practice: 'Make one decision today straight from your gut, before you analyze it.' },
+  { name: 'The Bloom', essence: 'Quiet is not nothing', glyph: '🌸', image: 'images/17-bloom.png',
+    why: 'This came through because the quiet response has felt like a verdict. The card came to tell you the seeds are still becoming.',
+    message: 'You have shown up and heard little back, and it has stung. But people watch you long before they reach out. Every honest post is planting something. Keep going. One day you look up and the field has bloomed.',
+    practice: 'Show up once more today for the one person who needs it.' },
+  { name: 'The Sovereign', essence: 'You are the CEO already', glyph: '👑', image: 'images/18-sovereign.png',
+    why: 'You pulled this because you keep waiting to feel ready to lead this. The card came to tell you that you already are.',
+    message: 'The woman who runs this business is not a future version of you. She is the one reading this right now. Stop auditioning for a role you were born into. Make the next choice as her.',
+    practice: 'Make one choice today as the CEO, not the hobbyist waiting for permission.' },
+  { name: 'The Weaver', essence: 'It all belongs together', glyph: '🕸', image: 'images/19-weaver.png',
+    why: 'This found you because the many threads of your work have felt tangled. The card came to show you the design.',
+    message: 'You are not too many things. You are weaving. Every gift you hold is a thread in one cloth that only you could make. The variety is not the problem to solve. It is the signature. Trust the pattern.',
+    practice: 'Notice how two of your gifts secretly serve the same transformation.' },
+  { name: 'The Dawn', essence: 'A new thing is beginning', glyph: '🌅', image: 'images/20-dawn.png',
+    why: 'You drew this because something is shifting that you cannot quite name. The card came to mark the turning and tell you to take the next step.',
+    message: 'A new chapter is rising, and you do not need the whole map to begin. The old way is loosening its grip. Take one honest step and let the path reveal itself as you move.',
+    practice: 'Take one small action today toward the thing that feels new and alive.' }
+];
+
+var oracleDrawn = false;
+
+// Apply three shuffled card-back images, one per face-down card.
+// Each card loads its own back; if that file is missing, that card keeps the painted placeholder.
+function applyCardBacks() {
+  var backEls = document.querySelectorAll('#spread [data-back]');
+  if (!backEls.length || !CARD_BACKS.length) return;
+  var shuffled = CARD_BACKS.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = tmp;
+  }
+  backEls.forEach(function(b, idx) {
+    var url = shuffled[idx % shuffled.length];
+    var test = new Image();
+    test.onload = function() {
+      b.style.backgroundImage = "url('" + url + "')";
+      var art = b.parentElement.querySelector('.oc-back-art');
+      if (art) art.style.opacity = '0';
+    };
+    test.src = url;
+  });
+}
+applyCardBacks();
+
+function chooseCard(index) {
+  if (oracleDrawn) return;
+  oracleDrawn = true;
+  var cards = document.querySelectorAll('#spread .oc');
+  var card = ORACLE_DECK[Math.floor(Math.random() * ORACLE_DECK.length)];
+
+  // fill the chosen card's face
+  var chosen = cards[index];
+  var faceImg = chosen.querySelector('[data-faceimg]');
+  var glyph = chosen.querySelector('[data-glyph]');
+  var photo = chosen.querySelector('[data-photo]');
+  var phName = chosen.querySelector('[data-name]');
+  glyph.textContent = card.glyph;
+  if (phName) phName.textContent = card.name; // shows only if image is missing
+  if (card.image) {
+    photo.style.display = '';
+    photo.src = card.image; // full-bleed art; if it 404s, onerror hides it and the placeholder shows
+  } else {
+    photo.style.display = 'none';
+    photo.removeAttribute('src');
+  }
+
+  // flip chosen, fade the others
+  cards.forEach(function(c, i) {
+    if (i === index) { c.classList.add('chosen'); }
+    else { c.classList.add('faded'); }
+  });
+
+  document.getElementById('oracleHint').textContent = '';
+
+  // reveal reading
+  setTimeout(function() {
+    document.getElementById('rName').textContent = card.name;
+    document.getElementById('rEssence').textContent = card.essence;
+    document.getElementById('rWhy').textContent = card.why;
+    document.getElementById('rMessage').textContent = card.message;
+    document.getElementById('rPractice').textContent = card.practice;
+    document.getElementById('reading').classList.add('show');
+    document.getElementById('again').classList.add('show');
+  }, 650);
+}
+
+function resetPull() {
+  var cards = document.querySelectorAll('#spread .oc');
+  document.getElementById('reading').classList.remove('show');
+  document.getElementById('again').classList.remove('show');
+  cards.forEach(function(c) { c.classList.remove('chosen'); });
+  document.getElementById('oracleHint').textContent = 'Three cards in front of you. Choose the one that\u2019s calling you.';
+  setTimeout(function() {
+    cards.forEach(function(c) {
+      c.classList.remove('faded');
+      var faceImg = c.querySelector('[data-faceimg]');
+      var photo = c.querySelector('[data-photo]');
+      if (photo) { photo.style.display = 'none'; photo.removeAttribute('src'); }
+    });
+    applyCardBacks(); // re-shuffle the three backs for a fresh spread
+    oracleDrawn = false;
+  }, 850);
+}
+
+
+/* ═══════════ DELEGATED LISTENERS (artifact sandbox blocks inline handlers) ═══════════ */
+document.addEventListener('click', function(e) {
+  var tab = e.target.closest('.tab[data-tab]');
+  if (tab) { switchTab(tab.getAttribute('data-tab'), tab); return; }
+
+  var owner = e.target.closest('.owner-btn[data-owner]');
+  if (owner) { switchOwner(owner.getAttribute('data-owner'), owner); return; }
+
+  if (e.target.closest('#todo-edit-btn')) { toggleEdit(); return; }
+  if (e.target.closest('#breathBtn')) { toggleBreath(); return; }
+
+  var choose = e.target.closest('[data-choose]');
+  if (choose) { chooseCard(parseInt(choose.getAttribute('data-choose'), 10)); return; }
+
+  if (e.target.closest('#oracle-again-btn')) { resetPull(); return; }
+
+  // Step cards: toggle only from the header, so clicks inside the open body don't collapse it
+  var head = e.target.closest('.step-head');
+  if (head) {
+    var card = head.closest('.step-card');
+    if (card) toggleStep(card);
+    return;
+  }
+});
+
+renderTodo();
+renderProgress();
+</script>
+</body>
+</html>
